@@ -1,0 +1,79 @@
+.btn_upload {
+    height: 200px;
+    width: 500px;
+    border: 1px dotted #777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    cursor: pointer;
+}
+
+.content-form {
+    width: 500px;
+}
+
+.sliderImage{
+    height: 200px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    cursor: pointer;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.footer{
+    display: flex;
+    width: inherit;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 20px;
+    padding: 0px 50px;
+}
+
+.spinnerContent{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.imageSilder{
+    height: 60px;
+    width: 60px;
+}
+
+.md-gray{
+    color: #777;
+    cursor: pointer;
+}
+
+.md-danger {
+    color: #ff7675;
+    cursor: pointer;
+}
+
+#login{
+    background-color: #fff;
+    height: 100vh;
+}
+
+#login .container #login-row #login-column #login-box {
+    /* margin-top: 120px; */
+    max-width: 600px;
+    height: 320px;
+    border: 1px solid #9C9C9C;
+    background-color: #fff;
+}
+
+#login .container #login-row #login-column #login-box #login-form {
+    padding: 20px;
+}
