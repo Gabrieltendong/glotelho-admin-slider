@@ -6,7 +6,7 @@ export function getAllCategorie(){
     axios.get(baseUrl + '/rest/fr_FR/V1/categories/', {
       headers: {
           'Authorization': 'Bearer ' + accessToken,
-          "Content-Type": "application/x-www-form-urlencoded"
+          "content-type": "application/octet-stream",
       }
     })
     .then((res) => resolve(res))
