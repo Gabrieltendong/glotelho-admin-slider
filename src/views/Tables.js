@@ -35,6 +35,7 @@ class Tables extends React.Component {
       isLoading: false,
       isUpdate: false,
       listSlider: [],
+      categorie: [],
       slider: {},
       activePage: 15,
       image: '',
@@ -47,7 +48,9 @@ class Tables extends React.Component {
   async componentDidMount(){
     this.loadData()
     const res = await getAllCategorie()
-    console.log('response', res)
+    
+    this.setState({categorie: res.data.children_data})
+    console.log('response', this.state.categorie)
   }
 
   loadData() {
@@ -270,7 +273,7 @@ class Tables extends React.Component {
       {/* ------------------ update and reacte slider -------------------------- */}
       <Rodal
         width = {530}
-        height = {500}
+        height = {550}
         visible={isVisibleModal}
         onClose={this.toggleModal}
       >
@@ -300,7 +303,7 @@ class Tables extends React.Component {
             <input type="email" value = {!isUpdate?'':this.state.description} onChange = {(e) => this.handleChange(e, 'description')} id="materialLoginFormEmail" className="form-control" />
           </div>
 
-           <Row>
+          <Row>
             <Col className="col-lg d-flex justify-content-center">
             {
               !this.state.sliderImage && !isUpdate?
@@ -318,16 +321,27 @@ class Tables extends React.Component {
             />
             </Col>
           </Row>
-
-         <Row>
-          <FormCheckbox
-          className = 'ml-3 mt-4'
-            checked={!isUpdate?false:this.state.isActive}
-            onChange={e => this.handleChange(e, "is_active")}
-          >
-            Is active
-          </FormCheckbox>
-         </Row>
+          <Row>
+          <div className="form-group ml-3 mt-3">
+            <label htmlFor="exampleFormControlSelect2">choisir la categorie du slider</label>
+            <select className="form-control" id="exampleFormControlSelect2">
+              {
+                this.state.categorie.length != 0 && this.state.categorie.map((item) => (
+                  <option>{item.name}</option>
+                ))
+              }
+            </select>
+          </div>
+          </Row>
+          <Row>
+            <FormCheckbox
+            className = 'ml-3 mt-2'
+              checked={!isUpdate?false:this.state.isActive}
+              onChange={e => this.handleChange(e, "is_active")}
+            >
+              Is active
+            </FormCheckbox>
+          </Row>
           {/* <input type="file"
               ref={(ref) => this.hiddenFileInput = ref}
               accept = "image/*"
@@ -368,9 +382,6 @@ class Tables extends React.Component {
                         Is active
                       </th>
                       <th scope="col" className="border-0">
-                        Numero categorie
-                      </th>
-                      <th scope="col" className="border-0">
                         Action
                       </th>
                     </tr>
@@ -392,7 +403,6 @@ class Tables extends React.Component {
                                 checked={item.isActive}
                               />
                             </td>
-                            <td>Gdańsk</td>
                             <td>
                               <i onClick = {() => this.toggleModal(item)} className="material-icons mr-1 md-gray">create</i>
                               <i onClick = {() => this.toggleModalRemove(item)} className="material-icons mr-1 md-danger">delete</i>
