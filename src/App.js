@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import { Router, Route, Redirect, Switch } from "react-router-dom";
+import { connect } from 'react-redux'
 
 import withTracker from "./withTracker";
 
@@ -9,15 +10,20 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Login from "./views/Login";
 import { DefaultLayout } from "./layouts";
 import Tables from "./views/Tables";
-import UserProfileLite from "./views/UserProfileLite";
-const isLogin = true
-export default () => (
-  <Router basename={process.env.REACT_APP_BASENAME || ""}>
+import { createBrowserHistory } from 'history';
+let history = createBrowserHistory();
+
+
+
+const App = (props) => {
+  const isLogin = props.user
+  return(
+    <Router history = {history}>
     <Switch>
-      <Route path = '/login'>
+      <Route exact path = '/login'>
         <Login />
       </Route>
-      <Route path = '/admin/slider'>
+      <Route exact path = '/admin/slider'>
         {
           isLogin?
             <DefaultLayout>
@@ -27,16 +33,16 @@ export default () => (
           <Redirect to = '/login'  />
         }
       </Route>
-      <Route path = '/admin/user'>
-        {
-          isLogin?
-            <DefaultLayout>
-              <UserProfileLite />
-            </DefaultLayout>
-          :
-          <Redirect to = '/login'  />
-        }
-      </Route>
+      <Route path = "*" component = {Login} />
     </Switch>
   </Router>
-);
+  )
+};
+
+const mapStateToProps = state => {
+  return {
+    user: state.userReducer.user
+  }
+}
+
+export default connect(mapStateToProps)(App)

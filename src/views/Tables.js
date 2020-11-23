@@ -14,7 +14,7 @@ import Loader from 'react-loader-spinner'
 import { ToastContainer, toast } from 'react-toastify';
 import firebase from 'firebase'
 import Switch from "react-switch";
-import Pagination from "react-js-pagination";
+import { withRouter } from "react-router-dom";
 
 import 'rodal/lib/rodal.css';
 import '../assets/style.css'
@@ -39,6 +39,7 @@ class Tables extends React.Component {
       slider: {},
       activePage: 15,
       image: '',
+      idCat: '',
       sliderImage: '',
       isActive: false
     }
@@ -324,10 +325,10 @@ class Tables extends React.Component {
           <Row>
           <div className="form-group ml-3 mt-3">
             <label htmlFor="exampleFormControlSelect2">choisir la categorie du slider</label>
-            <select className="form-control" id="exampleFormControlSelect2">
+            <select onChange = {(e) => console.log('selected cat', e.target.value)} value = {this.state.idCat} className="form-control" id="exampleFormControlSelect2">
               {
                 this.state.categorie.length != 0 && this.state.categorie.map((item) => (
-                  <option>{item.name}</option>
+                  <option value = {item.id}>{item.name}</option>
                 ))
               }
             </select>
@@ -426,4 +427,5 @@ class Tables extends React.Component {
 }
 
 
-export default Tables;
+
+export default withRouter(Tables);
